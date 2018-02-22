@@ -1,6 +1,7 @@
 [package]
 name = "rustypress"
 version = "0.1.0"
-authors = ["Andrei Nagacevschi <andrei.nagacevschi@osf-commerce.com>"]
+authors = ["Andrei Nagacevschi <andrein_bio@yahoo.com>"]
 
 [dependencies]
+hyper = "0.11"
