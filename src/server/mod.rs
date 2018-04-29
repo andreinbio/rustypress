@@ -5,11 +5,12 @@ use hyper::header::ContentLength;
 use hyper::server::{Http, Request, Response, Service};
 use hyper::{Method, StatusCode};
 
-// use router;
+// use router-parser;
 struct RustyService;
-pub struct Server {
-    routes: 
-}
+pub struct Server;
+// pub struct Server {
+//     routes:
+// }
 
 impl Service for RustyService {
     // boilerplate hooking up hyper's server types
@@ -21,7 +22,6 @@ impl Service for RustyService {
     type Future = Box<Future<Item=Self::Response, Error=Self::Error>>;
 
     fn call(&self, req: Request) -> Self::Future {
-        // println!("first rout is: {0}", self.routes.len());
         let mut response = Response::new();
         response.set_body(req.path().to_string());
         Box::new(futures::future::ok(response))
@@ -29,12 +29,12 @@ impl Service for RustyService {
 }
 
 impl Server {
-    pub fn new(routes) -> Server {
+    pub fn new() -> Self {
         Server
     }
 
-    pub fn http(&self) -> () {
-        let addr = "127.0.0.1:3000".parse().unwrap();
+    pub fn http(&self, address: &str) -> () {
+        let addr = address.parse().unwrap();
         Http::new().bind(&addr, || Ok(RustyService)).unwrap().run().unwrap();
     }
 }

@@ -18,6 +18,10 @@ fn main() {
     // // let server = Http::new().bind(&addr, || Ok(router::Router{routes: vec!("test".to_string())})).unwrap();
     // let server = Http::new().bind(&addr, || Ok(router::Router {routes: vec!("test".to_string())})).unwrap();
     // server.run().unwrap();
+    let socket = "3000";
+    let ip = "127.0.0.1";
+    let address = format!("{}:{}", ip, socket);
 
-    server::Server::new().http();
+    println!("server running at localhost:{0}", socket);
+    server::Server::new().http(&address);
 }
