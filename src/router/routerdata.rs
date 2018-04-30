@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::error::Error;
 use std::fmt;
 use std::sync::Arc;
@@ -10,7 +10,7 @@ use recognizer::{Match, Params};
 
 pub struct RouterInner {
     // The routers, specialized by method.
-    pub routers: HashMap<method::Method, Recognizer<Box<Handler>>,
+    pub routers: BTreeMap<method::Method, Recognizer<Box<Handler>>,
     // Routes that accept any method.
     pub wildcard: Recognizer<Box<Handler>>,
     // Used in url generation.
