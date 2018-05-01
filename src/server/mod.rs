@@ -5,7 +5,7 @@ use hyper::header::ContentLength;
 use hyper::server::{Http, Request, Response, Service};
 use hyper::{Method, StatusCode};
 
-// use router-parser;
+use router;
 struct RustyService;
 pub struct Server;
 // pub struct Server {
@@ -22,8 +22,9 @@ impl Service for RustyService {
     type Future = Box<Future<Item=Self::Response, Error=Self::Error>>;
 
     fn call(&self, req: Request) -> Self::Future {
+        let result = router::RouteResult::new(req);
         let mut response = Response::new();
-        response.set_body(req.path().to_string());
+        response.set_body(result.get_response());
         Box::new(futures::future::ok(response))
     }
 }
