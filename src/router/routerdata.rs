@@ -46,4 +46,17 @@ impl Router {
         self.mut_inner().route_ids.insert(route_id.as_ref().to_string(), glob.as_ref().to_string());
         self
     }
+
+    pub fn recognize(&self, method: &hyper::Method, path: &str) -> Option<String> {
+        let found_method = self.inner.routers.get(method);
+        if found_method.is_some() {
+            let found_path = found_method.unwrap().get(path);
+
+            if found_path.is_some() {
+                return Some(found_path.unwrap().to_string())
+            }
+        }
+
+        Some("Not Found".to_string())
+    }
 }

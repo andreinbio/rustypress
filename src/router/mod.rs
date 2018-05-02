@@ -7,16 +7,25 @@ use hyper::Method;
 mod routerdata;
 pub use self::routerdata::Router;
 
-pub struct RouteResult;
+pub struct RouteResult {
+    router: Router,
+    req: hyper::server::Request,
+}
 
 impl RouteResult {
     pub fn new(req: hyper::server::Request) -> Self {
         let mut router = Router::new();
-        router.route(Method::Get, "test", "index");
-        RouteResult
+        router.route(Method::Get, "/test", "test page");
+        router.route(Method::Get, "/", "index");
+        
+        RouteResult {
+            router: router,
+            req: req,
+        }
     }
 
     pub fn get_response(&self) -> String {
-        String::from("Hello")
+        let router = self.router.recognize(self.req.method(), self.req.path());
+        router.unwrap()
     }
 }
