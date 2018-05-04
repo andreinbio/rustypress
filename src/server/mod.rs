@@ -8,9 +8,6 @@ use hyper::{Method, StatusCode};
 use router;
 struct RustyService;
 pub struct Server;
-// pub struct Server {
-//     routes:
-// }
 
 impl Service for RustyService {
     // boilerplate hooking up hyper's server types
