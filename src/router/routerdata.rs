@@ -5,14 +5,15 @@ use std::sync::Arc;
 use hyper;
 
 // use hyper::Method;
+use base::Handler;
 
-//use recognizer::Router as Recognizer;
+use recognizer::Recognizer;
 // use recognizer::{Match, Params};
 
 struct RouterInner {
     // The routers, specialized by method.
     // pub routers: BTreeMap<method::Method, Recognizer<Box<Handler>>,
-    pub routers: HashMap<hyper::Method, HashMap<String, String>>,
+    pub routers: HashMap<hyper::Method, Recognizer<Handler>>,
 
     // Routes that accept any method.
     //pub wildcard: Recognizer<Box<Handler>>,
@@ -38,7 +39,7 @@ impl Router {
         Arc::get_mut(&mut self.inner).expect("Cannot modify router at this point.")
     }
 
-    pub fn route<S: AsRef<str>, I: AsRef<str>>(&mut self, method: hyper::Method, glob: S, route_id: I) -> &mut Router {
+    pub fn route<S: AsRef<str>, H: Handler, I: AsRef<str>>(&mut self, method: hyper::Method, glob: S, handler: H, route_id: I) -> &mut Router {
         self.mut_inner().routers
         .entry(method)
         .or_insert(HashMap::new())
