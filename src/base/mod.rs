@@ -3,6 +3,9 @@ use hyper::server::Request as Request;
 use hyper::server::Response as Response;
 use hyper::Method;
 use router::Router as Router;
+pub use self::handler::Handler;
+
+mod handler;
 
 pub struct Routers {
     router: Router,

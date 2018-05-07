@@ -1,1 +1,1 @@
-struct Recognizer;
+pub struct Recognizer;

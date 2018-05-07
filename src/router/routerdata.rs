@@ -5,9 +5,9 @@ use std::sync::Arc;
 use hyper;
 
 // use hyper::Method;
-use base::Handler;
+pub use base::Handler;
 
-use recognizer::Recognizer;
+use router::Recognizer;
 // use recognizer::{Match, Params};
 
 struct RouterInner {
