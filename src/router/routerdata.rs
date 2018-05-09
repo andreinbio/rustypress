@@ -44,13 +44,14 @@ impl Router {
         self.mut_inner().routers
         .entry(method)
         .or_insert(BTreeMap::new())
-        .insert(glob.as_ref().to_string(), handler);
+        .insert(glob.as_ref().to_string(), Box::new(handler));
         self.mut_inner().route_ids.insert(route_id.as_ref().to_string(), glob.as_ref().to_string());
         self
     }
 
     pub fn recognize(&self, method: &hyper::Method, path: &str) -> Option<&Handler> {
         let found_method = self.inner.routers.get(method);
+        println!("{:?}", found_method);
         if found_method.is_some() {
             let found_handler = found_method.unwrap().get(path);
 

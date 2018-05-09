@@ -4,9 +4,10 @@ use base::Response;
 
 pub struct Index;
 
-impl Handlers for Index {
-    pub fn handle(&self, req: &mut Request) -> Response {
+impl Handler for Index {
+    fn handle(&self, req: &mut Request) -> Response {
         let mut response = Response::new();
-        //response.
+        response.set_body("admin test body".to_string());
+        response
     }
 }

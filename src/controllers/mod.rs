@@ -6,8 +6,8 @@ pub struct Controllers {
 
 impl Controllers {
     pub fn new() -> Self {
-        Contollers {
-            admin: admin::Index::new()
+        Controllers {
+            admin: admin::Index
         }
     }
 }
