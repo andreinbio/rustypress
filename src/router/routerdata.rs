@@ -49,16 +49,17 @@ impl Router {
         self
     }
 
-    pub fn recognize(&self, method: &hyper::Method, path: &str) -> Option<&Handler> {
+    pub fn recognize(&self, method: &hyper::Method, path: &str) -> &Box<Handler> {
         let found_method = self.inner.routers.get(method);
-        println!("{:?}", found_method);
+
         if found_method.is_some() {
             let found_handler = found_method.unwrap().get(path);
 
             if found_handler.is_some() {
-                return found_handler;
+                return found_handler.unwrap();
             }
         }
-        //add here a default handler
+
+        Some()
     }
 }

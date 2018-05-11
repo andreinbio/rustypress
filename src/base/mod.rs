@@ -30,7 +30,8 @@ impl Routers {
 
     pub fn get_response(mut self) -> Response {
         let router = self.router.recognize(self.request.method(), self.request.path());
-        self.response.set_body(router.unwrap());
-        self.response
+        // self.response.set_body(router.unwrap());
+        // self.response
+        router.handle(self.request)
     }
 }
