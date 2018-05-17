@@ -20,7 +20,7 @@ impl Service for RustyService {
 
     fn call(&self, req: Request) -> Self::Future {
         let response = Response::new();
-        let result = base::Routers::new(req, response);
+        let mut result = base::Routers::new(req, response);
         Box::new(futures::future::ok(result.get_response()))
     }
 }

@@ -8,6 +8,16 @@ use controllers::Controllers;
 
 mod handler;
 
+struct DefaultHandler;
+
+impl Handler for DefaultHandler {
+    fn handle(&self, req: &mut Request) -> Response {
+        let mut response = Response::new();
+        response.set_body("default handler".to_string());
+        response
+    }
+}
+
 pub struct Routers {
     router: Router,
     request: Request,
@@ -28,10 +38,12 @@ impl Routers {
         }
     }
 
-    pub fn get_response(mut self) -> Response {
+    pub fn get_response(&mut self) -> Response {
         let router = self.router.recognize(self.request.method(), self.request.path());
-        // self.response.set_body(router.unwrap());
-        // self.response
-        router.handle(self.request)
+        if (router.is_some()) {
+            router.unwrap().handle(&mut self.request)
+        } else {
+            DefaultHandler.handle(&mut self.request)
+        }
     }
 }

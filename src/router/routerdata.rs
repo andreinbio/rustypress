@@ -6,7 +6,9 @@ use std::sync::Arc;
 use hyper;
 
 // use hyper::Method;
-pub use base::Handler;
+pub use base::Handler as Handler;
+use base::Response;
+use base::Request;
 
 // use router::Recognizer;
 // use recognizer::{Match, Params};
@@ -49,17 +51,17 @@ impl Router {
         self
     }
 
-    pub fn recognize(&self, method: &hyper::Method, path: &str) -> &Box<Handler> {
+    pub fn recognize(&self, method: &hyper::Method, path: &str) -> Option<&Box<Handler>> {
         let found_method = self.inner.routers.get(method);
 
         if found_method.is_some() {
             let found_handler = found_method.unwrap().get(path);
 
             if found_handler.is_some() {
-                return found_handler.unwrap();
+                return found_handler;
             }
         }
 
-        Some()
+        None
     }
 }
