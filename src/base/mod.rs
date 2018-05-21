@@ -8,33 +8,24 @@ use controllers::Controllers;
 
 mod handler;
 
-struct DefaultHandler;
-
-impl Handler for DefaultHandler {
-    fn handle(&self, req: &mut Request) -> Response {
-        let mut response = Response::new();
-        response.set_body("default handler".to_string());
-        response
-    }
-}
-
 pub struct Routers {
     router: Router,
     request: Request,
     response: Response,
+    defaultHandler: Box<Handler>
 }
 
 impl Routers {
     pub fn new(request: Request, response: Response) -> Self {
         let mut router = Router::new();
         let controllers = Controllers::new();
-        // router.route(Method::Get, "/test", "test page");
         router.route(Method::Get, "/", controllers.admin,  "index");
 
         Routers {
             router: router,
             request: request,
-            response: response
+            response: response,
+            defaultHandler: Box::new(controllers.default),
         }
     }
 
@@ -43,7 +34,7 @@ impl Routers {
         if (router.is_some()) {
             router.unwrap().handle(&mut self.request)
         } else {
-            DefaultHandler.handle(&mut self.request)
+            self.defaultHandler.handle(&mut self.request)
         }
     }
 }

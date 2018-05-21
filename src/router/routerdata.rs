@@ -5,17 +5,13 @@ use std::fmt;
 use std::sync::Arc;
 use hyper;
 
-// use hyper::Method;
 pub use base::Handler as Handler;
 use base::Response;
 use base::Request;
 
-// use router::Recognizer;
-// use recognizer::{Match, Params};
 
 struct RouterInner {
     // The routers, specialized by method.
-    // pub routers: BTreeMap<method::Method, Recognizer<Box<Handler>>,
     pub routers: HashMap<hyper::Method, BTreeMap<String, Box<Handler>>>,
 
     // Routes that accept any method.
