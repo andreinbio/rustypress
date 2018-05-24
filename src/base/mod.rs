@@ -11,12 +11,11 @@ mod handler;
 pub struct Routers {
     router: Router,
     request: Request,
-    response: Response,
-    defaultHandler: Box<Handler>
+    default_handler: Box<Handler>
 }
 
 impl Routers {
-    pub fn new(request: Request, response: Response) -> Self {
+    pub fn new(request: Request) -> Self {
         let mut router = Router::new();
         let controllers = Controllers::new();
         router.route(Method::Get, "/", controllers.admin,  "index");
@@ -24,17 +23,16 @@ impl Routers {
         Routers {
             router: router,
             request: request,
-            response: response,
-            defaultHandler: Box::new(controllers.default),
+            default_handler: Box::new(controllers.default),
         }
     }
 
     pub fn get_response(&mut self) -> Response {
         let router = self.router.recognize(self.request.method(), self.request.path());
-        if (router.is_some()) {
+        if router.is_some() {
             router.unwrap().handle(&mut self.request)
         } else {
-            self.defaultHandler.handle(&mut self.request)
+            self.default_handler.handle(&mut self.request)
         }
     }
 }

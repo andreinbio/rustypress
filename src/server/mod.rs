@@ -19,8 +19,7 @@ impl Service for RustyService {
     type Future = Box<Future<Item=Self::Response, Error=Self::Error>>;
 
     fn call(&self, req: Request) -> Self::Future {
-        let response = Response::new();
-        let mut result = base::Routers::new(req, response);
+        let mut result = base::Routers::new(req);
         Box::new(futures::future::ok(result.get_response()))
     }
 }
