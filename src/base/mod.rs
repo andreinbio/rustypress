@@ -1,4 +1,3 @@
-use hyper;
 pub use hyper::server::Request as Request;
 pub use hyper::server::Response as Response;
 use hyper::Method;
@@ -11,14 +10,15 @@ mod handler;
 pub struct Routers {
     router: Router,
     request: Request,
-    default_handler: Box<Handler>
+    default_handler: Box<Handler>,
 }
 
 impl Routers {
     pub fn new(request: Request) -> Self {
         let mut router = Router::new();
         let controllers = Controllers::new();
-        router.route(Method::Get, "/", controllers.admin,  "index");
+        router.route(Method::Get, "/", controllers.storefront,  "index");
+        router.route(Method::Get, "/admin", controllers.admin, "admin");
 
         Routers {
             router: router,

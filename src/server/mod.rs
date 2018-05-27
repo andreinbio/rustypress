@@ -1,9 +1,7 @@
 use futures;
 use hyper;
 use futures::future::Future;
-use hyper::header::ContentLength;
 use hyper::server::{Http, Request, Response, Service};
-use hyper::{Method, StatusCode};
 
 use base;
 struct RustyService;

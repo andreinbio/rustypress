@@ -1,14 +1,11 @@
 use std::collections::HashMap;
 use std::collections::BTreeMap;
-use std::error::Error;
-use std::fmt;
+// use std::error::Error;
+// use std::fmt;
 use std::sync::Arc;
 use hyper;
 
 pub use base::Handler as Handler;
-use base::Response;
-use base::Request;
-
 
 struct RouterInner {
     // The routers, specialized by method.
