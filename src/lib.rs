@@ -1,6 +1,7 @@
 extern crate hyper;
 extern crate futures;
 extern crate toml;
+extern crate rustyview;
 
 mod server;
 mod router;
