@@ -1,5 +1,6 @@
 use base::Request;
 use base::Response;
+use utils::Utils;
 
 pub trait Handler: Send + Sync + 'static {
     fn handle(&self, request: &mut Request) -> Response;

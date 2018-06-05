@@ -16,8 +16,8 @@ impl Controllers {
         let admin_template = View::new(util_helper.get_admin_path());
         Controllers {
             storefront: storefront::Index::new(util_helper.clone(), admin_template.clone()),
-            admin: admin::Index,
-            default: default::Index,
+            admin: admin::Index::new(util_helper.clone(), admin_template.clone()),
+            default: default::Index::new(util_helper.clone(), admin_template.clone()),
         }
     }
 }
