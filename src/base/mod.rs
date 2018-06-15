@@ -19,6 +19,7 @@ impl Routers {
         let controllers = Controllers::new();
         router.route(Method::Get, "/", controllers.storefront,  "index");
         router.route(Method::Get, "/admin", controllers.admin, "admin");
+        router.route(Method::Get, "/static/", controllers.mount, "static");
 
         Routers {
             router: router,

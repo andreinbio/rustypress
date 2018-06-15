@@ -4,6 +4,7 @@ use std::collections::BTreeMap;
 // use std::fmt;
 use std::sync::Arc;
 use hyper;
+use std::path::{PathBuf, Path};
 
 pub use base::Handler as Handler;
 
@@ -48,7 +49,14 @@ impl Router {
         let found_method = self.inner.routers.get(method);
 
         if found_method.is_some() {
-            let found_handler = found_method.unwrap().get(path);
+            let _path = Path::new(path);
+            let mut found_handler = None;
+
+            if _path.starts_with("/static/") {
+                found_handler = found_method.unwrap().get("/static/");
+            } else {
+                found_handler = found_method.unwrap().get(path);
+            }
 
             if found_handler.is_some() {
                 return found_handler;
