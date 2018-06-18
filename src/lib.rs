@@ -13,4 +13,4 @@ mod controllers;
 mod utils;
 
 pub use utils::Utils as Utils;
-pub use server::Server as RustyServer;
+pub use server::RustyServer as RustyServer;

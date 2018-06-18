@@ -24,7 +24,7 @@ impl Handler for Index {
 
         match path.extension().and_then(OsStr::to_str) {
             Some(ext) => match ext {
-                "html" => response.headers_mut().set(header::ContentType::html()),
+                "html" => response.headers_mut().set(header::CONTENT_TYPE::html()),
                 "css" => response.headers_mut().set_raw("Content-Type", "text/css"),
                 "js" => response.headers_mut().set_raw("Content-Type", "application/javascript"),
                 _ => response.headers_mut().set(header::ContentType::text()),

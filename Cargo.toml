@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Andrei Nagacevschi <andrein_bio@yahoo.com>"]
 
 [dependencies]
-hyper = "0.11"
+hyper = "0.12"
 futures = "0.1"
 toml = "*"
 serde_json="*"
