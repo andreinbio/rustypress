@@ -1,6 +1,7 @@
 use base::Handler;
 use base::Request;
 use base::Response;
+use base::Body;
 use utils::Utils;
 use rustyview::View;
 // use hyper::{StatusCode, header};
@@ -11,13 +12,13 @@ pub struct Index {
 }
 
 impl Handler for Index {
-    fn handle(&self, _req: &mut Request) -> Response {
-        let mut response = Response::new();
+    fn handle(&self, _req: &mut Request<Body>) -> Response<Body> {
+        let mut response = Response::new(Body::empty());
         let model = json!({
             "pageTitle": "Testing",
         });
 
-        response.set_body(self.template.render("index.html", model));
+        *response.body_mut() = Body::from(self.template.render("index.html", model));
         response
     }
 }

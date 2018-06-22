@@ -1,9 +1,10 @@
 use base::Request;
 use base::Response;
+use base::Body;
 use utils::Utils;
 
 pub trait Handler: Send + Sync + 'static {
-    fn handle(&self, request: &mut Request) -> Response;
+    fn handle(&self, request: &mut Request<Body>) -> Response<Body>;
 }
 
 // impl<F> Handler for F

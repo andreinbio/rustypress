@@ -1,6 +1,7 @@
 use base::Handler;
 use base::Request;
 use base::Response;
+use base::Body;
 
 use utils::Utils;
 use rustyview::View;
@@ -11,9 +12,9 @@ pub struct Index {
 }
 
 impl Handler for Index {
-    fn handle(&self, _req: &mut Request) -> Response {
-        let mut response = Response::new();
-        response.set_body("default body, 404 maybe ?".to_string());
+    fn handle(&self, _req: &mut Request<Body>) -> Response<Body> {
+        let mut response = Response::new(Body::empty());
+        *response.body_mut() = Body::from("default body, 404 maybe ?");
         response
     }
 }

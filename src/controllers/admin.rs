@@ -1,6 +1,7 @@
 use base::Handler;
 use base::Request;
 use base::Response;
+use base::Body;
 // use hyper::{StatusCode, header};
 
 use utils::Utils;
@@ -12,8 +13,8 @@ pub struct Index {
 }
 
 impl Handler for Index {
-    fn handle(&self, _req: &mut Request) -> Response {
-        let mut response = Response::new();
+    fn handle(&self, _req: &mut Request<Body>) -> Response<Body> {
+        let mut response = Response::new(Body::empty());
 
         // if true {
         //     response.set_status(StatusCode::Forbidden);
@@ -21,7 +22,7 @@ impl Handler for Index {
         //     return response;
         // }
 
-        response.set_body("admin test body".to_string());
+        *response.body_mut() = Body::from("admin test body");
         response
     }
 }
